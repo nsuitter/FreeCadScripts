@@ -1,5 +1,13 @@
-hFeet = float(12)
-wFeet = float(3)
+################################## 
+# Type in the dimensions here
+# e.g. 4x8 wall would be
+# hFeet = float(8)
+# wFeet = float(4)
+
+hFeet = float(16)
+wFeet = float(4)
+
+##################################
 hInches = float(hFeet/2)
 wInches = float(wFeet/2)
 hMM = float(hInches*25.4)
@@ -43,15 +51,15 @@ App.ActiveDocument.recompute()
 Gui.activeDocument().resetEdit()
 
 
-App.activeDocument().recompute()
 App.activeDocument().addObject('Sketcher::SketchObject','Sketch001')
 App.activeDocument().Sketch001.Support = (App.ActiveDocument.Pad,["Face6"])
 App.activeDocument().recompute()
 Gui.activeDocument().setEdit('Sketch001')
 
+
 def addCircle():
 	App.ActiveDocument.Sketch001.addGeometry(Part.Circle(App.Vector(x,y,0),App.Vector(0,0,1),1.6))
-	App.activeDocument().recompute()
+	App.ActiveDocument.recompute()
 	pass
 
 x = 3.175
@@ -96,9 +104,8 @@ while eval(xCondition):
  	getCondtions()
 	pass
 
-
-App.ActiveDocument.recompute()
 Gui.activeDocument().resetEdit()
+App.activeDocument().recompute()
 App.activeDocument().addObject("PartDesign::Pocket","Pocket")
 App.activeDocument().Pocket.Sketch = App.activeDocument().Sketch001
 App.activeDocument().Pocket.Length = 5.0
@@ -116,10 +123,14 @@ App.ActiveDocument.recompute()
 Gui.activeDocument().resetEdit()
 
 
+
 App.activeDocument().addObject('Sketcher::SketchObject','Sketch002')
 App.activeDocument().Sketch002.Support = (App.ActiveDocument.Pocket,["Face5"])
 App.activeDocument().recompute()
 Gui.activeDocument().setEdit('Sketch002')
+
+
+
 
 x = 1.2
 y = 3.175
@@ -151,7 +162,6 @@ while y < hMM:
 	y = y + 6.35
 	pass
 
-
 Gui.activeDocument().resetEdit()
 App.activeDocument().recompute()
 App.activeDocument().addObject("PartDesign::Pocket","Pocket001")
@@ -172,10 +182,14 @@ Gui.activeDocument().resetEdit()
 
 
 
+
 App.activeDocument().addObject('Sketcher::SketchObject','Sketch003')
-App.activeDocument().Sketch003.Support = (App.ActiveDocument.Pocket,["Face5"])
+App.activeDocument().Sketch003.Support = (App.ActiveDocument.Pocket001,["Face5"])
 App.activeDocument().recompute()
 Gui.activeDocument().setEdit('Sketch003')
+
+
+
 
 x = 3.175
 y = 1.2
@@ -207,7 +221,6 @@ while x < wMM:
 	x = x + 6.35
 	pass
 
-
 Gui.activeDocument().resetEdit()
 App.activeDocument().recompute()
 App.activeDocument().addObject("PartDesign::Pocket","Pocket002")
@@ -225,3 +238,4 @@ App.ActiveDocument.Pocket002.Type = 0
 App.ActiveDocument.Pocket002.UpToFace = None
 App.ActiveDocument.recompute()
 Gui.activeDocument().resetEdit()
+
