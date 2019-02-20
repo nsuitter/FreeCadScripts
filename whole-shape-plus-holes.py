@@ -5,28 +5,6 @@ wInches = float(wFeet/2)
 hMM = float(hInches*25.4)
 wMM = float(wInches*25.4)
 
-# add Rectange
-# App.activeDocument().addObject('Sketcher::SketchObject','Sketch')
-# App.activeDocument().Sketch.Placement = App.Placement(App.Vector(0.000000,0.000000,0.000000),App.Rotation(0.000000,0.000000,0.000000,1.000000))
-# Gui.activeDocument().activeView().setCamera('#Inventor V2.1 ascii \n OrthographicCamera {\n viewportMapping ADJUST_CAMERA \n position 0 0 87 \n orientation 0 0 1  0 \n nearDistance -112.88701 \n farDistance 287.28702 \n aspectRatio 1 \n focalDistance 87 \n height 143.52005 }')
-# Gui.activeDocument().setEdit('Sketch')
-# App.ActiveDocument.Sketch.addGeometry(Part.Line(App.Vector(0.000000,-0.000000,0),App.Vector(wMM,-0.000000,0)))
-# App.ActiveDocument.Sketch.addGeometry(Part.Line(App.Vector(wMM,-0.000000,0),App.Vector(wMM,hMM,0)))
-# App.ActiveDocument.Sketch.addGeometry(Part.Line(App.Vector(wMM,hMM,0),App.Vector(0.000000,hMM,0)))
-# App.ActiveDocument.Sketch.addGeometry(Part.Line(App.Vector(0.000000,hMM,0),App.Vector(0.000000,-0.000000,0)))
-# App.ActiveDocument.Sketch.addConstraint(Sketcher.Constraint('Coincident',0,2,1,1)) 
-# App.ActiveDocument.Sketch.addConstraint(Sketcher.Constraint('Coincident',1,2,2,1)) 
-# App.ActiveDocument.Sketch.addConstraint(Sketcher.Constraint('Coincident',2,2,3,1)) 
-# App.ActiveDocument.Sketch.addConstraint(Sketcher.Constraint('Coincident',3,2,0,1)) 
-# App.ActiveDocument.Sketch.addConstraint(Sketcher.Constraint('Horizontal',0)) 
-# App.ActiveDocument.Sketch.addConstraint(Sketcher.Constraint('Horizontal',2)) 
-# App.ActiveDocument.Sketch.addConstraint(Sketcher.Constraint('Vertical',1)) 
-# App.ActiveDocument.Sketch.addConstraint(Sketcher.Constraint('Vertical',3)) 
-# App.ActiveDocument.recompute()
-# App.ActiveDocument.Sketch.addConstraint(Sketcher.Constraint('PointOnObject',0,1,-1)) 
-# App.ActiveDocument.recompute()
-# Gui.activeDocument().resetEdit()
-# App.activeDocument().recompute()
 
 App.activeDocument().addObject('Sketcher::SketchObject','Sketch')
 App.activeDocument().Sketch.Placement = App.Placement(App.Vector(0.000000,0.000000,0.000000),App.Rotation(0.000000,0.000000,0.000000,1.000000))
@@ -65,23 +43,6 @@ App.ActiveDocument.recompute()
 Gui.activeDocument().resetEdit()
 
 
-#add pad
-# App.activeDocument().addObject("PartDesign::Pad","Pad")
-# App.activeDocument().Pad.Sketch = App.activeDocument().Sketch
-# App.activeDocument().Pad.Length = 10.0
-# App.ActiveDocument.recompute()
-# Gui.activeDocument().hide("Sketch")
-# Gui.activeDocument().setEdit('Pad',0)
-# App.ActiveDocument.Pad.Length = 3.175000
-# App.ActiveDocument.Pad.Reversed = 0
-# App.ActiveDocument.Pad.Midplane = 0
-# App.ActiveDocument.Pad.Length2 = 100.000054
-# App.ActiveDocument.Pad.Type = 0
-# App.ActiveDocument.Pad.UpToFace = None
-# App.ActiveDocument.recompute()
-# Gui.activeDocument().resetEdit()
-
-# add sketch
 App.activeDocument().recompute()
 App.activeDocument().addObject('Sketcher::SketchObject','Sketch001')
 App.activeDocument().Sketch001.Support = (App.ActiveDocument.Pad,["Face6"])
@@ -135,7 +96,7 @@ while eval(xCondition):
  	getCondtions()
 	pass
 
-#add pocket
+
 App.ActiveDocument.recompute()
 Gui.activeDocument().resetEdit()
 App.activeDocument().addObject("PartDesign::Pocket","Pocket")
@@ -154,8 +115,6 @@ App.ActiveDocument.Pocket.UpToFace = None
 App.ActiveDocument.recompute()
 Gui.activeDocument().resetEdit()
 
-
-# add sketch
 
 App.activeDocument().addObject('Sketcher::SketchObject','Sketch002')
 App.activeDocument().Sketch002.Support = (App.ActiveDocument.Pocket,["Face5"])
@@ -192,7 +151,7 @@ while y < hMM:
 	y = y + 6.35
 	pass
 
-#add pocket
+
 Gui.activeDocument().resetEdit()
 App.activeDocument().recompute()
 App.activeDocument().addObject("PartDesign::Pocket","Pocket001")
@@ -212,7 +171,7 @@ App.ActiveDocument.recompute()
 Gui.activeDocument().resetEdit()
 
 
-# add sketch
+
 App.activeDocument().addObject('Sketcher::SketchObject','Sketch003')
 App.activeDocument().Sketch003.Support = (App.ActiveDocument.Pocket,["Face5"])
 App.activeDocument().recompute()
@@ -248,7 +207,7 @@ while x < wMM:
 	x = x + 6.35
 	pass
 
-#add pocket
+
 Gui.activeDocument().resetEdit()
 App.activeDocument().recompute()
 App.activeDocument().addObject("PartDesign::Pocket","Pocket002")
