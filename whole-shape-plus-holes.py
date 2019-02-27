@@ -3,15 +3,20 @@
 # e.g. 4x8 wall would be
 # hFeet = float(8)
 # wFeet = float(4)
+# tFeet = float(0.5)
 
-hFeet = float(16)
+hFeet = float(8)
 wFeet = float(4)
+tFeet = float(0.5)
+
+magnetRadiusMM = 3.175
+magnetThicknessMM = 3.175
 
 ##################################
-hInches = float(hFeet/2)
-wInches = float(wFeet/2)
-hMM = float(hInches*25.4)
-wMM = float(wInches*25.4)
+
+hMM = float(hFeet*25.4)
+wMM = float(wFeet*25.4)
+tMM = float(tFeet*25.4)
 
 
 App.activeDocument().addObject('Sketcher::SketchObject','Sketch')
@@ -41,7 +46,7 @@ App.activeDocument().Pad.Length = 10.0
 App.ActiveDocument.recompute()
 Gui.activeDocument().hide("Sketch")
 Gui.activeDocument().setEdit('Pad',0)
-App.ActiveDocument.Pad.Length = 3.175000
+App.ActiveDocument.Pad.Length = float(tMM/2)
 App.ActiveDocument.Pad.Reversed = 0
 App.ActiveDocument.Pad.Midplane = 0
 App.ActiveDocument.Pad.Length2 = 100.000054
@@ -58,12 +63,12 @@ Gui.activeDocument().setEdit('Sketch001')
 
 
 def addCircle():
-	App.ActiveDocument.Sketch001.addGeometry(Part.Circle(App.Vector(x,y,0),App.Vector(0,0,1),1.6))
+	App.ActiveDocument.Sketch001.addGeometry(Part.Circle(App.Vector(x,y,0),App.Vector(0,0,1),float(magnetRadiusMM)))
 	App.ActiveDocument.recompute()
 	pass
 
-x = 3.175
-y = 3.175
+x = float(magnetRadiusMM*2)
+y = float(magnetRadiusMM*2)
 yStart = y
 
 def getCondtions():
@@ -75,18 +80,18 @@ def getCondtions():
 
 	if x > 0:
 		xCondition = "x < " + str(wMM)
-		xChange    = "x + 6.35"
+		xChange    = "x + " + str(float(magnetRadiusMM*4))
 	else:
 		xCondition = "x >- " + str(wMM)
-		xChange    = "x - 6.35"
+		xChange    = "x - " + str(float(magnetRadiusMM*4))
 		pass
 
 	if y > 0:
 		yCondition = "y < " + str(hMM-7)
-		yChange    = "y + 6.35"
+		yChange    = "y + " + str(float(magnetRadiusMM*4))
 	else:
 		yCondition = "y >-" + str(hMM-7)
-		yChange    = "y - 6.35"
+		yChange    = "y - " + str(float(magnetRadiusMM*4))
 		pass
 	pass
 
@@ -116,7 +121,7 @@ Gui.activeDocument().setEdit('Pocket')
 Gui.ActiveDocument.Pocket.ShapeColor=Gui.ActiveDocument.Pad.ShapeColor
 Gui.ActiveDocument.Pocket.LineColor=Gui.ActiveDocument.Pad.LineColor
 Gui.ActiveDocument.Pocket.PointColor=Gui.ActiveDocument.Pad.PointColor
-App.ActiveDocument.Pocket.Length = 0.793750
+App.ActiveDocument.Pocket.Length = float(magnetThicknessMM/2)
 App.ActiveDocument.Pocket.Type = 0
 App.ActiveDocument.Pocket.UpToFace = None
 App.ActiveDocument.recompute()
@@ -132,34 +137,34 @@ Gui.activeDocument().setEdit('Sketch002')
 
 
 
-x = 1.2
-y = 3.175
+x = 2.4
+y = float(magnetRadiusMM*2)
 
 while y < hMM:
-	lx = x - 25.4/32
-	rx = x + 25.4/32
-	ty = y + 25.4/16
-	by = y - 25.4/16
+	lx = x - float(magnetThicknessMM/2)
+	rx = x + float(magnetThicknessMM/2)
+	ty = y + float(magnetRadiusMM)
+	by = y - float(magnetRadiusMM)
 	App.ActiveDocument.Sketch002.addGeometry(Part.Line(App.Vector(lx,ty,0),App.Vector(rx,ty,0)))
 	App.ActiveDocument.Sketch002.addGeometry(Part.Line(App.Vector(lx,by,0),App.Vector(rx,by,0)))
 	App.ActiveDocument.Sketch002.addGeometry(Part.Line(App.Vector(lx,ty,0),App.Vector(lx,by,0)))
 	App.ActiveDocument.Sketch002.addGeometry(Part.Line(App.Vector(rx,ty,0),App.Vector(rx,by,0)))
-	y = y + 6.35
+	y = y + float(magnetRadiusMM*4)
 	pass
 
-x = wMM - 1.2
-y = 3.175
+x = wMM - 2.4
+y = float(magnetRadiusMM*2)
 
 while y < hMM:
-	lx = x - 25.4/32
-	rx = x + 25.4/32
-	ty = y + 25.4/16
-	by = y - 25.4/16
+	lx = x - float(magnetThicknessMM/2)
+	rx = x + float(magnetThicknessMM/2)
+	ty = y + float(magnetRadiusMM)
+	by = y - float(magnetRadiusMM)
 	App.ActiveDocument.Sketch002.addGeometry(Part.Line(App.Vector(lx,ty,0),App.Vector(rx,ty,0)))
 	App.ActiveDocument.Sketch002.addGeometry(Part.Line(App.Vector(lx,by,0),App.Vector(rx,by,0)))
 	App.ActiveDocument.Sketch002.addGeometry(Part.Line(App.Vector(lx,ty,0),App.Vector(lx,by,0)))
 	App.ActiveDocument.Sketch002.addGeometry(Part.Line(App.Vector(rx,ty,0),App.Vector(rx,by,0)))
-	y = y + 6.35
+	y = y + float(magnetRadiusMM*4)
 	pass
 
 Gui.activeDocument().resetEdit()
@@ -174,7 +179,7 @@ Gui.activeDocument().setEdit('Pocket001')
 Gui.ActiveDocument.Pocket001.ShapeColor=Gui.ActiveDocument.Pocket.ShapeColor
 Gui.ActiveDocument.Pocket001.LineColor=Gui.ActiveDocument.Pocket.LineColor
 Gui.ActiveDocument.Pocket001.PointColor=Gui.ActiveDocument.Pocket.PointColor
-App.ActiveDocument.Pocket001.Length = 1.587500
+App.ActiveDocument.Pocket001.Length = float(magnetRadiusMM)
 App.ActiveDocument.Pocket001.Type = 0
 App.ActiveDocument.Pocket001.UpToFace = None
 App.ActiveDocument.recompute()
@@ -191,34 +196,34 @@ Gui.activeDocument().setEdit('Sketch003')
 
 
 
-x = 3.175
-y = 1.2
+x = float(magnetRadiusMM*2)
+y = 2.4
 
 while x < wMM:
-	lx = x - 25.4/16
-	rx = x + 25.4/16
-	ty = y + 25.4/32
-	by = y - 25.4/32
+	lx = x - float(magnetRadiusMM)
+	rx = x + float(magnetRadiusMM)
+	ty = y + float(magnetThicknessMM/2)
+	by = y - float(magnetThicknessMM/2)
 	App.ActiveDocument.Sketch003.addGeometry(Part.Line(App.Vector(lx,ty,0),App.Vector(rx,ty,0)))
 	App.ActiveDocument.Sketch003.addGeometry(Part.Line(App.Vector(lx,by,0),App.Vector(rx,by,0)))
 	App.ActiveDocument.Sketch003.addGeometry(Part.Line(App.Vector(lx,ty,0),App.Vector(lx,by,0)))
 	App.ActiveDocument.Sketch003.addGeometry(Part.Line(App.Vector(rx,ty,0),App.Vector(rx,by,0)))
-	x = x + 6.35
+	x = x + float(magnetRadiusMM*4)
 	pass
 
-x = 3.175
-y = hMM - 1.2
+x = float(magnetRadiusMM*2)
+y = hMM - 2.4
 
 while x < wMM:
-	lx = x - 25.4/16
-	rx = x + 25.4/16
-	ty = y + 25.4/32
-	by = y - 25.4/32
+	lx = x - float(magnetRadiusMM)
+	rx = x + float(magnetRadiusMM)
+	ty = y + float(magnetThicknessMM/2)
+	by = y - float(magnetThicknessMM/2)
 	App.ActiveDocument.Sketch003.addGeometry(Part.Line(App.Vector(lx,ty,0),App.Vector(rx,ty,0)))
 	App.ActiveDocument.Sketch003.addGeometry(Part.Line(App.Vector(lx,by,0),App.Vector(rx,by,0)))
 	App.ActiveDocument.Sketch003.addGeometry(Part.Line(App.Vector(lx,ty,0),App.Vector(lx,by,0)))
 	App.ActiveDocument.Sketch003.addGeometry(Part.Line(App.Vector(rx,ty,0),App.Vector(rx,by,0)))
-	x = x + 6.35
+	x = x + float(magnetRadiusMM*4)
 	pass
 
 Gui.activeDocument().resetEdit()
@@ -233,7 +238,7 @@ Gui.activeDocument().setEdit('Pocket002')
 Gui.ActiveDocument.Pocket002.ShapeColor=Gui.ActiveDocument.Pocket001.ShapeColor
 Gui.ActiveDocument.Pocket002.LineColor=Gui.ActiveDocument.Pocket001.LineColor
 Gui.ActiveDocument.Pocket002.PointColor=Gui.ActiveDocument.Pocket001.PointColor
-App.ActiveDocument.Pocket002.Length = 1.587500
+App.ActiveDocument.Pocket002.Length = float(magnetRadiusMM)
 App.ActiveDocument.Pocket002.Type = 0
 App.ActiveDocument.Pocket002.UpToFace = None
 App.ActiveDocument.recompute()
