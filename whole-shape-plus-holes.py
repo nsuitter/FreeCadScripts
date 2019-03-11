@@ -8,15 +8,23 @@
 hFeet = float(8)
 wFeet = float(4)
 tFeet = float(0.5)
+scale = float(1.0/20)
+horizontalMagnets = 8
+verticalMagnets = 16
+
+
+hInches = float(hFeet*12*scale)
+wInches = float(wFeet*12*scale)
+tInches = float(tFeet*12*scale)
 
 magnetRadiusMM = 3.175
 magnetThicknessMM = 3.175
 
 ##################################
 
-hMM = float(hFeet*25.4)
-wMM = float(wFeet*25.4)
-tMM = float(tFeet*25.4)
+hMM = float(hInches*25.4)
+wMM = float(wInches*25.4)
+tMM = float(tInches*25.4)
 
 
 App.activeDocument().addObject('Sketcher::SketchObject','Sketch')
@@ -67,8 +75,10 @@ def addCircle():
 	App.ActiveDocument.recompute()
 	pass
 
-x = float(magnetRadiusMM*2)
-y = float(magnetRadiusMM*2)
+offset = (tMM-(2*magnetRadiusMM))/2
+
+x = magnetRadiusMM + offset
+y = magnetRadiusMM + offset
 yStart = y
 
 def getCondtions():
@@ -80,18 +90,18 @@ def getCondtions():
 
 	if x > 0:
 		xCondition = "x < " + str(wMM)
-		xChange    = "x + " + str(float(magnetRadiusMM*4))
+		xChange    = "x + " + str(float(wMM/horizontalMagnets))
 	else:
 		xCondition = "x >- " + str(wMM)
-		xChange    = "x - " + str(float(magnetRadiusMM*4))
+		xChange    = "x - " + str(float(wMM/horizontalMagnets))
 		pass
 
 	if y > 0:
 		yCondition = "y < " + str(hMM-7)
-		yChange    = "y + " + str(float(magnetRadiusMM*4))
+		yChange    = "y + " + str(float(hMM/verticalMagnets))
 	else:
 		yCondition = "y >-" + str(hMM-7)
-		yChange    = "y - " + str(float(magnetRadiusMM*4))
+		yChange    = "y - " + str(float(hMM/verticalMagnets))
 		pass
 	pass
 
@@ -137,8 +147,8 @@ Gui.activeDocument().setEdit('Sketch002')
 
 
 
-x = 2.4
-y = float(magnetRadiusMM*2)
+x = magnetThicknessMM/2+offset
+y = float(magnetRadiusMM+offset)
 
 while y < hMM:
 	lx = x - float(magnetThicknessMM/2)
@@ -149,11 +159,11 @@ while y < hMM:
 	App.ActiveDocument.Sketch002.addGeometry(Part.Line(App.Vector(lx,by,0),App.Vector(rx,by,0)))
 	App.ActiveDocument.Sketch002.addGeometry(Part.Line(App.Vector(lx,ty,0),App.Vector(lx,by,0)))
 	App.ActiveDocument.Sketch002.addGeometry(Part.Line(App.Vector(rx,ty,0),App.Vector(rx,by,0)))
-	y = y + float(magnetRadiusMM*4)
+	y = y + float(hMM/verticalMagnets)
 	pass
 
-x = wMM - 2.4
-y = float(magnetRadiusMM*2)
+x = wMM-magnetThicknessMM/2-offset
+y = float(magnetRadiusMM+offset)
 
 while y < hMM:
 	lx = x - float(magnetThicknessMM/2)
@@ -164,7 +174,7 @@ while y < hMM:
 	App.ActiveDocument.Sketch002.addGeometry(Part.Line(App.Vector(lx,by,0),App.Vector(rx,by,0)))
 	App.ActiveDocument.Sketch002.addGeometry(Part.Line(App.Vector(lx,ty,0),App.Vector(lx,by,0)))
 	App.ActiveDocument.Sketch002.addGeometry(Part.Line(App.Vector(rx,ty,0),App.Vector(rx,by,0)))
-	y = y + float(magnetRadiusMM*4)
+	y = y + float(hMM/verticalMagnets)
 	pass
 
 Gui.activeDocument().resetEdit()
@@ -196,8 +206,8 @@ Gui.activeDocument().setEdit('Sketch003')
 
 
 
-x = float(magnetRadiusMM*2)
-y = 2.4
+x = magnetRadiusMM + offset
+y = magnetThicknessMM/2+offset
 
 while x < wMM:
 	lx = x - float(magnetRadiusMM)
@@ -208,11 +218,11 @@ while x < wMM:
 	App.ActiveDocument.Sketch003.addGeometry(Part.Line(App.Vector(lx,by,0),App.Vector(rx,by,0)))
 	App.ActiveDocument.Sketch003.addGeometry(Part.Line(App.Vector(lx,ty,0),App.Vector(lx,by,0)))
 	App.ActiveDocument.Sketch003.addGeometry(Part.Line(App.Vector(rx,ty,0),App.Vector(rx,by,0)))
-	x = x + float(magnetRadiusMM*4)
+	x = x + float(wMM/horizontalMagnets)
 	pass
 
-x = float(magnetRadiusMM*2)
-y = hMM - 2.4
+x = magnetRadiusMM + offset
+y = hMM - magnetThicknessMM/2 - offset
 
 while x < wMM:
 	lx = x - float(magnetRadiusMM)
@@ -223,7 +233,7 @@ while x < wMM:
 	App.ActiveDocument.Sketch003.addGeometry(Part.Line(App.Vector(lx,by,0),App.Vector(rx,by,0)))
 	App.ActiveDocument.Sketch003.addGeometry(Part.Line(App.Vector(lx,ty,0),App.Vector(lx,by,0)))
 	App.ActiveDocument.Sketch003.addGeometry(Part.Line(App.Vector(rx,ty,0),App.Vector(rx,by,0)))
-	x = x + float(magnetRadiusMM*4)
+	x = x + float(wMM/horizontalMagnets)
 	pass
 
 Gui.activeDocument().resetEdit()
